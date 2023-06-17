@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Hello World</p>
+    <form action ="" method="post">        {# 転送先はデフォルトでは views.py になる#}
+        {% csrf_token %}
+        <input type="date" name="deadline">
+        <textarea name="content"></textarea>
+        <input type="submit" value="post">
+
+    </form>
+
+
+    <div>{{ todos }}</div>           {# todos は model オブジェクト　辞書型のリストのように使える #} 
+
+    {% for todo in todos %}
+    <div>{{ todo.deadline}} : {{ todo.content }}</div>
+    {% endfor %}
+
+</body>
+</html>
