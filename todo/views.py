@@ -59,13 +59,14 @@ delete = DeleteView.as_view()
 
 
 class EditView(View):
-    def post(self, request, pk, *args, **kwargs):
+
+    def post(self, request, pk, *args, **kwargs): #  pk 編集対象のid
         print("編集")
         print(pk)
 
-        todo = Todo.objects.filter(id=pk).first()
+        todo = Todo.objects.filter(id=pk).first()   # 編集対象のTodoを特定する
 
-        form = TodoForm(request.POST, instance=todo) 
+        form = TodoForm(request.POST, instance=todo) # instance に編集対象の Todo を指定
         
         if form.is_valid():                  # models → views の間に forms を挟む感じ
             form.save()
@@ -75,4 +76,4 @@ class EditView(View):
 
         return redirect("todo:index")
 
-delete = DeleteView.as_view()
+edit = EditView.as_view()
