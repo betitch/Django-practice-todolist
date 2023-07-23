@@ -77,3 +77,19 @@ class EditView(View):
         return redirect("todo:index")
 
 edit = EditView.as_view()
+
+# Todo の完了、未完を切り替えるビュー
+class Doneview(View):
+    def post(self, request, pk, *args, **kwargs): #  pk 編集対象のid
+        print("切り替え")
+        todo = Todo.objects.filter(id=pk).first() 
+        # todo.done = True                           # バリデーションは不要
+
+        todo.done = not todo.done                    # デフォルトで False なので、ボタンを押すと True になる
+
+        todo.save()
+
+        return redirect("todo:index")
+    
+done = Doneview.as_view()
+

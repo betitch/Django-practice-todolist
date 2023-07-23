@@ -73,10 +73,21 @@
             </form>
 
             <div class="text-end">
-                <input class="btn btn-primary" type="button" value="やった">
+
+                <form action="{% url 'todo:done' todo.id %}" method="POST" style="display: inline-block;">
+                    {% csrf_token %}
+                    {% if todo.done %}
+                    <input class="btn btn-primary" type="submit" value="未完にする">
+                    {% else %}
+                    <input class="btn btn-outline-primary" type="submit" value="完了にする">
+                    {% endif %}
+                </form>
+                
+
                 <label class="btn btn-success" for="todo_edit_chk_{{ todo.id }}">編集</label>
 
-                <form action="{% url 'todo:delete' todo.id %}" method="POST" style="display: inline-block;">
+                                                                                                            {# 削除確認のダイアログ表示 HTMLの属性の一部で javascript 発動されるものがある #}
+                <form action="{% url 'todo:delete' todo.id %}" method="POST" style="display: inline-block; "onsubmit="if(confirm('本当に削除しますか？')){ return true } else { return false };">
                     {% csrf_token %}
                     <input class="btn btn-danger" type="submit" value="削除">
                 </form>
